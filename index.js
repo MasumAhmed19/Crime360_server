@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 const corsOptions = {
   origin: [
     "http://localhost:5173",
+    "https://crime360.web.app",
+    "https://crime360.netlify.app"
 ,
   ],
   credentials: true,
@@ -56,7 +58,7 @@ async function run() {
     });
 
     // READ all posted query by specific user (their email)
-    app.get("/queries/:email", async (req, res) => {
+    app.get("/crimes/:email", async (req, res) => {
       try {
         const email = req.params.email;
         const query = { "queryer.email": email };
@@ -68,7 +70,7 @@ async function run() {
     });
 
     // READ all posted query by specific user (post id)
-    app.get("/query/:id", async (req, res) => {
+    app.get("/crime/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await postsCollection.find(query).toArray();
